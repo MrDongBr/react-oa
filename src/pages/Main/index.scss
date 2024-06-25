@@ -1,0 +1,27 @@
+$backgrond:#e0e0e0;
+.home_layout{
+    min-height: 100vh;
+    .home_logo{
+        height: 32px;
+        margin: 16px;
+        background: #fff3;
+        border-radius: 6px;
+    }
+    .home-header{
+        padding: 0 16px;
+        background: $backgrond;
+        .home-header_breadcrumb{
+            line-height: 64px;
+        }
+    }
+    .home-content{
+        margin: 16px;
+        height:100%;
+        .home-content-inner{
+            padding: 24px;
+            height: 100%;
+            background: $backgrond;
+            border-radius: 4px;
+        }
+    }
+}
