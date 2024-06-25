@@ -1,10 +1,11 @@
 import React, {Children, lazy} from 'react'
-const Login = lazy(() => import('@/pages/Login'))
+import Login from '@/pages/Login'
 const Main = lazy(() => import('@/pages/Main'))
 
 const Index = lazy(() => import('@/pages/Index'))
 const Admin = lazy(() => import('@/pages/DataMgmt/Admin'))
 const CreateProject = lazy(() => import('@/pages/DataMgmt/CreateProject'))
+const FullTextSearching = lazy(() => import('@/pages/DataRetrieval/FullTextSearching'))
 
 const lazyRoute = (Component:JSX.Element) =>{
     return (
@@ -16,7 +17,7 @@ const lazyRoute = (Component:JSX.Element) =>{
 const router = [
     {
         path: '/',
-        element:  lazyRoute(<Login />)
+        element:  <Login />
     },
     {
         path: '/app',
@@ -27,12 +28,16 @@ const router = [
                 element: lazyRoute(<Index />),
             },
             {
-                path: 'data-create-project',
-                element: lazyRoute(<Admin />),
+                path: 'dataMgmt/createProject',
+                element: lazyRoute(< CreateProject/>),
             },
             {
-                path: 'data-admin',
-                element: lazyRoute(<CreateProject />),
+                path: 'dataMgmt/admin',
+                element: lazyRoute(< Admin/>),
+            },
+            {
+                path: 'dataRetrieval/fullTextSearch',
+                element: lazyRoute(<FullTextSearching />),
             }
         ]
     },
