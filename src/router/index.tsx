@@ -5,6 +5,7 @@ const Main = lazy(() => import('@/pages/Main'))
 const Index = lazy(() => import('@/pages/Index'))
 const Admin = lazy(() => import('@/pages/DataMgmt/Admin'))
 const CreateProject = lazy(() => import('@/pages/DataMgmt/CreateProject'))
+const Upload = lazy(() => import('@/pages/DataMgmt/Upload'))
 const FullTextSearching = lazy(() => import('@/pages/DataRetrieval/FullTextSearching'))
 
 const lazyRoute = (Component:JSX.Element) =>{
@@ -34,6 +35,10 @@ const router = [
             {
                 path: 'dataMgmt/admin',
                 element: lazyRoute(< Admin/>),
+            },
+            {
+                path: 'dataMgmt/upload',
+                element: lazyRoute(< Upload/>),
             },
             {
                 path: 'dataRetrieval/fullTextSearch',

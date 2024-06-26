@@ -23,6 +23,10 @@ const menus:MenuItem[] = [
             {
                 key: '/app/dataMgmt/admin',
                 label: '平台管理员'
+            },
+            {
+                key: '/app/dataMgmt/upload',
+                label: '文件上传'
             }
         ]
     },

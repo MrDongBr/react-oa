@@ -1,4 +1,16 @@
+import axios from '@/utils/http';
+import React, { useEffect, useState } from 'react';
+
+
 const FullTextSearching = () => {
+
+    useEffect(()=>{
+        axios.get("/project").then(res => {
+            console.log(res);
+          }).catch(error => {
+            console.log(error);
+          })
+    },[])
     
     return (
         <div>

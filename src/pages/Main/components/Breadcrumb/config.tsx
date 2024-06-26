@@ -14,6 +14,10 @@ export default [
             {
                 path: '/app/dataMgmt/admin',
                 title: '项目管理员'
+            },
+            {
+                path: '/app/dataMgmt/upload',
+                title: '文件上传'
             }
         ]
     },

@@ -1,120 +1,116 @@
-import type { FormProps } from 'antd';
-import { Button, Checkbox, Form, Input, Select } from 'antd';
-import React ,{useEffect,useState } from 'react';
-
-
-const formData= {
+import { useEffect } from 'react';
+import { Button, InputNumber, Form, Input, Select,Space} from 'antd';
+import { useSelectData } from '@/hooks/Select.hook';
+import { useNavigate,useLocation } from 'react-router-dom';
+const { TextArea } = Input;
+const formData = {
     projectName: '',
     qudao: '',
-    jiafang:''
-}
-
-
-interface List1 {
-    value:string,
-    label:string,
-}
-
+    jiafang: '',
+};
 
 const App: React.FC = () => {
     const [ceateForm] = Form.useForm();
-    const [list1, setList1] = useState<List1 []>([])
-    useEffect(() => {
-        ceateForm.setFieldsValue({
-            projectName: '中船项目设计',
-            qudao: '1',
-            jiafang:'中船'
+    const navigateTo = useNavigate()
+    const { channelList, secretLevelList,linkTypeList } = useSelectData();
+    const onFinish = (values:any) => {
+        ceateForm.validateFields().then(() => {
+            // 表单校验通过，执行提交逻辑
+            const data = ceateForm.getFieldsValue(true)
+            navigateTo('/app/dataMgmt/admin')
         })
-        
-        setList1([{
-            value: '1',
-            label: '渠道A',
-        },
-        {
-            value: '2',
-            label: '渠道B',
-        },
-        {
-            value: '3',
-            label: '渠道C',
-        }])
-    },[])
-
-    const onFinish: FormProps['onFinish'] = (values) => {
-        console.log('Success:', values);
     };
 
+    const {state} = useLocation()
+    useEffect(() => {
+        if(state){
+            ceateForm.setFieldsValue(state)
+        }
+    },[state])
     const onReset = () => {
         ceateForm.resetFields();
     };
     return (
-        <Form
-            form={ceateForm}
-            initialValues={formData}
-            labelCol={{ span: 2 }}
-            onFinish={onFinish}
-            autoComplete="off"
-        >
-            <Form.Item label="项目名称" name="projectName" rules={[{ required: true, message: '请输入项目名称' }]}>
-                <Input />
-            </Form.Item>
-
-            <Form.Item label="渠道" name="qudao" rules={[{ required: true, message: '请选择渠道' }]}>
-                <Select
-                    showSearch
-                    placeholder="请选择渠道"
-                    optionFilterProp="label"
-                    options={list1}
-                />
-            </Form.Item>
-
-            <Form.Item label="甲方" name="jiafang" rules={[{ required: true, message: '请选择甲方' }]}>
-                <Select
-                    showSearch
-                    placeholder="请选择甲方"
-                    optionFilterProp="label"
-                    options={[
-                        {
-                            value: '中船',
-                            label: '中船',
-                        },
-                        {
-                            value: '中石油',
-                            label: '中石油',
-                        },
-                        {
-                            value: '国电',
-                            label: '国电',
-                        },
-                    ]}
-                />
-            </Form.Item>
-            
-            <Form.Item
-                noStyle
-                shouldUpdate={(prevValues, currentValues) => prevValues.jiafang !== currentValues.jiafang}
+        <>
+            <Form
+                form={ceateForm}
+                initialValues={formData}
+                labelCol={{ span: 2 }}
+                autoComplete="off"
             >
-                {({ getFieldValue }) =>
-                    getFieldValue('jiafang') === '中船' ? (
-                        <Form.Item
-                            name="xinghao"
-                            label="型号"
-                            rules={[
-                                {
-                                required: true,
-                                },
-                            ]}
-                        >
-                            <Input />
-                        </Form.Item>
-                    ) : null
-                }
-            </Form.Item>
-        
-            <Button onClick={onReset}>
-                Fill form
-            </Button>
-        </Form>
+                <Form.Item label="项目名称" name="projectName" rules={[{ required: true, message: '请输入项目名称' }]}>
+                    <Input />
+                </Form.Item>
+
+                <Form.Item label="渠道" name="channel" rules={[{ required: true, message: '请选择渠道' }]}>
+                    <Select
+                        showSearch
+                        placeholder="请选择渠道"
+                        optionFilterProp="label"
+                        options={channelList.map((item: any) => ({
+                            value: item.id,
+                            label: item.name,
+                        }))}
+                    />
+                </Form.Item>
+
+                <Form.Item label="甲方" name="firstParty" rules={[{ required: true, message: '请输入甲方' }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item label="保密等级" name="secretLevel" rules={[{ required: true, message: '保密等级' }]}>
+                    <Select
+                        showSearch
+                        placeholder="请选择保密等级"
+                        optionFilterProp="label"
+                        options={secretLevelList.map((item: any) => ({
+                            value: item.id,
+                            label: item.name,
+                        }))}
+                    />
+                </Form.Item>
+                <Form.Item label="经费" name="funds" rules={[{ required: true, message: '请输入经费' }]}>
+                    <InputNumber addonAfter="万"  />
+                </Form.Item>
+
+                <Form.Item label="周期" name="cycle" rules={[{ required: true, message: '请输入周期' }]}>
+                    <InputNumber addonAfter="周"  />
+                </Form.Item>
+
+                <Form.Item label="项目描述" name="projectDescribe">
+                    <TextArea rows={4} placeholder="项目描述" maxLength={6} />
+                </Form.Item>
+
+                <Form.Item label="项目成员" name="projectMember">
+                    <InputNumber addonAfter="人" />
+                </Form.Item>
+                <Form.Item
+                    label="数据连接类型"
+                    name="dataConnectionType"
+                    rules={[{ required: true, message: '请选择数据连接类型' }]}
+                >
+                    <Select
+                        showSearch
+                        placeholder="请选择数据连接类型"
+                        optionFilterProp="label"
+                        options={linkTypeList.map((item: any) => ({
+                            value: item.id,
+                            label: item.name,
+                        }))}
+                    />
+                </Form.Item>
+                <Form.Item label="服务地址" name="serviceAddress" rules={[{ required: true, message: '服务地址' }]}>
+                    <Input />
+                </Form.Item>
+            </Form>
+            <Space style={{float: 'right'}}>
+                <Button onClick={onReset} >
+                    清空
+                </Button>
+                <Button onClick={onFinish} type="primary" >
+                    保存
+                </Button>
+            </Space>
+        </>
     );
 };
 
