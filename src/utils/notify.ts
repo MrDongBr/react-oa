@@ -1,8 +1,10 @@
+/**
+ * antd的静态方法，消费 context
+ */
+
 import { notification } from 'antd';
 
-
-
-export const $popSucess = (description:string ,message?:string)=>{
+export const $popSuccess = (description:string ,message?:string)=>{
     notification.success({
         message: message || '请求成功',
         description:description,

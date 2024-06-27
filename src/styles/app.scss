@@ -16,3 +16,17 @@ body{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.confirm-modal-trolia{
+    button{
+        border-radius: 2px !important;
+    }
+    .ant-btn-primary{
+        background: red !important;
+    }
+    .ant-btn-default:hover{
+        color: red !important;
+        border-color: red !important;
+        background: #ffffff;
+    }
+}

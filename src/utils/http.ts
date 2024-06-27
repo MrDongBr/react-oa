@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import {  $popError,$popSucess } from './notify';
+import {  $popError,$popSuccess } from './notify';
 interface Options {
     url: string;
     method: string;
@@ -26,7 +26,7 @@ export class Request {
             if (res.status === 200 &&  res.data.code === 200) {
                 return res.data.data;
             } else {
-                $popError('res.data.msg')
+                $popError(res.data.msg)
             }
         });
     }

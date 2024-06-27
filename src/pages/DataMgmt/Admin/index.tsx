@@ -3,9 +3,9 @@ import { Table, Pagination, Space, Tag } from 'antd';
 import type { TableProps } from 'antd';
 import {getProjectListApi} from '@/api/project'
 import {DataType} from '@/types/project';
-import {useSelectData} from '@/hooks/Select.hook';
+import {useSelectData} from '@/hooks/useSelect.hook';
 import { useNavigate } from 'react-router-dom';
-
+import { $confirm } from '@/utils/confirm';
 const MyTable = () => {
     const [data, setData] = useState<DataType[]>([]);
     const [loading, setLoading] = useState(false);
@@ -20,6 +20,19 @@ const MyTable = () => {
             setLoading(false);
             setData(data.data)
             setTotal(data.result)
+        })
+    }
+
+
+    const del = (data:DataType) =>{ 
+        $confirm({
+            title: '删除确认',
+            content: '是否确认删除该项目',
+            onOk: () => {
+                setTimeout(() => {
+                    search(currentPage, pageSize)
+                }, 1000);
+            },
         })
     }
 
@@ -111,7 +124,7 @@ const MyTable = () => {
             render: (_, data) => (
                 <Space size="middle">
                     <a onClick={() => edit(data)}>编辑</a>  
-                    <a>删除</a>
+                    <a onClick={() => del(data)}>删除</a>
                 </Space>
             ),
         },

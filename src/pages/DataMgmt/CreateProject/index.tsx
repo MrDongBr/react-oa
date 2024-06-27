@@ -1,19 +1,14 @@
 import { useEffect } from 'react';
 import { Button, InputNumber, Form, Input, Select,Space} from 'antd';
-import { useSelectData } from '@/hooks/Select.hook';
+import { useSelectData } from '@/hooks/useSelect.hook';
 import { useNavigate,useLocation } from 'react-router-dom';
 const { TextArea } = Input;
-const formData = {
-    projectName: '',
-    qudao: '',
-    jiafang: '',
-};
 
 const App: React.FC = () => {
     const [ceateForm] = Form.useForm();
     const navigateTo = useNavigate()
     const { channelList, secretLevelList,linkTypeList } = useSelectData();
-    const onFinish = (values:any) => {
+    const onFinish = () => {
         ceateForm.validateFields().then(() => {
             // 表单校验通过，执行提交逻辑
             const data = ceateForm.getFieldsValue(true)
@@ -34,7 +29,6 @@ const App: React.FC = () => {
         <>
             <Form
                 form={ceateForm}
-                initialValues={formData}
                 labelCol={{ span: 2 }}
                 autoComplete="off"
             >
