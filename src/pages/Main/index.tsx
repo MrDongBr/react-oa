@@ -5,9 +5,10 @@ import MainMenu from './components/Menu';
 import MainBreadcrumb from './components/Breadcrumb';
 import { useSelector,useDispatch } from 'react-redux';
 import type { MenuProps } from 'antd';
-import {UserOutlined} from '@ant-design/icons';
+import {UserOutlined,BgColorsOutlined} from '@ant-design/icons';
 import { clearUser } from '@/store/user';
 import { useNavigate } from 'react-router-dom';
+import ThemeConfig from './components/ThemeConfig';
 import './index.scss';
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -24,6 +25,7 @@ const items: MenuProps['items'] = [
   ];
 const Home: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
+    const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate()
     const userInfo = useSelector((state: any) => state.user);
@@ -44,14 +46,18 @@ const Home: React.FC = () => {
                     <Flex justify="space-between">
                         <MainBreadcrumb />
                         <div>
-                        <Dropdown menu={{ items,onClick  }}>
-                            <a onClick={(e) => e.preventDefault()}>
-                                <Space>
-                                    <UserOutlined />
-                                    <div>{userInfo.username}</div>
-                                </Space>
-                            </a>
-                        </Dropdown>
+                            <Space size="large">
+                                <BgColorsOutlined onClick={()=>setOpen(true)}/>
+                                <Dropdown menu={{ items,onClick  }}>
+                                    <a onClick={(e) => e.preventDefault()}>
+                                        <Space>
+                                            <UserOutlined />
+                                            <div>{userInfo.username}</div>
+                                        </Space>
+                                    </a>
+                                </Dropdown>
+                            </Space>
+                            
                         </div>
                        
                     </Flex>
@@ -64,6 +70,7 @@ const Home: React.FC = () => {
                 </Content>
                 <Footer className="text-center">Ant Design ©{new Date().getFullYear()} Created by React18 Antd5</Footer>
             </Layout>
+            <ThemeConfig open={open} onClose={()=>setOpen(false)}/>
         </Layout>
     );
 };

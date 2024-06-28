@@ -2,9 +2,7 @@ import { useEffect } from 'react';
 import { useRoutes ,useLocation,useNavigate} from 'react-router-dom';
 import router from './router';
 import { ConfigProvider } from 'antd';
-import {config} from '@/styles/theme/config'
 import {useSelector} from 'react-redux'
-
 
 const ToRedirect = (props:{path:string}) => {
     const navigate = useNavigate()
@@ -28,14 +26,22 @@ const BeforeRouterEnter = () => {
 }
 
 const App = () => {
+    const {themeConfig} = useSelector((state: any) => state.theme);
     return (
-        <ConfigProvider
-            theme={{
-                token: config,
-            }}
-        >
-            <div className="app"><BeforeRouterEnter /></div>
-        </ConfigProvider>
+        <>
+             
+             <ConfigProvider
+                theme={{
+                    token: {
+                        colorPrimary: themeConfig.primary,
+                        colorBgContainer: themeConfig.bgColor,
+                    },
+                }}
+            >
+                <div className="app"><BeforeRouterEnter /></div>
+            </ConfigProvider>
+        </>
+        
     );
 };
 

@@ -16,7 +16,7 @@ export const getStorage = <T>(key: string):T|null => {
 }
 
 export const setStorage = (key:string, value: any) =>{
-    STORAGE_KEY.setItem(key, value)
+    STORAGE_KEY.setItem(key, JSON.stringify(value))
 }
 
 export const removeStorage = (key: string) => {
