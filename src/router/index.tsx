@@ -1,20 +1,15 @@
-import React, {Children, lazy} from 'react'
+import { lazy } from 'react'
 import Login from '@/pages/Login'
+import lazyRoute from '@/components/LazyRoute'
+import Error404 from '@/components/Error404'
 const Main = lazy(() => import('@/pages/Main'))
-
 const Index = lazy(() => import('@/pages/Index'))
 const Admin = lazy(() => import('@/pages/DataMgmt/Admin'))
 const CreateProject = lazy(() => import('@/pages/DataMgmt/CreateProject'))
 const Upload = lazy(() => import('@/pages/DataMgmt/Upload'))
 const FullTextSearching = lazy(() => import('@/pages/DataRetrieval/FullTextSearching'))
 
-const lazyRoute = (Component:JSX.Element) =>{
-    return (
-        <React.Suspense fallback={<div>Loading...</div>}>
-            {Component}
-        </React.Suspense>
-    )
-}
+
 const router = [
     {
         path: '/',
@@ -48,7 +43,7 @@ const router = [
     },
     {
         path: '*',
-        element: <div>404</div>
+        element: <Error404 />
     }
 
 ]

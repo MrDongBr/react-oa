@@ -1,12 +1,18 @@
 const STORAGE_KEY = localStorage
 
-export const getStorage = (key: string) => {
-    const data = STORAGE_KEY.getItem(key)
-    try {
-        return JSON.parse(data || '{}')
-    } catch (e) {
-        return data;
+export const getStorage = <T>(key: string):T|null => {
+    let data = STORAGE_KEY.getItem(key)
+    if(data){
+        try {
+            data = JSON.parse(data);
+            return data as T
+        } catch {
+            return data as T
+        }
+    }else{
+        return null;
     }
+   
 }
 
 export const setStorage = (key:string, value: any) =>{

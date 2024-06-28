@@ -1,12 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit'
 
 import {getStorage,setStorage,clearStorage} from '@/utils/storage'
-const initialState = {
-    username:getStorage('username') || '',
-    token:getStorage('token') || '',
-    auth:getStorage('auth') || []
+const initialState:{username:string,token:string,auth:string[]} = {
+    username:getStorage<string>('username') || '',
+    token:getStorage<string>('token') || '',
+    auth:getStorage<string []>('auth') || []
 }
-
 
 export const userSlice = createSlice({
     name:'user',
