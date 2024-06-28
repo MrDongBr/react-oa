@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import 'reset-css';
-import App from './app';
+import App from './App.tsx';
 import '@/styles/app.scss';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
